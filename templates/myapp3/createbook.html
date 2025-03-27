@@ -1,0 +1,29 @@
+{% extends 'myapp3/base.html' %}
+
+{% block content %}
+<h2>Add New Book</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Book</button>
+</form>
+
+<h2>Books List</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>
+            <a href="{% url 'update_book' book.id %}">Edit</a>
+            <a href="{% url 'delete_book' book.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
